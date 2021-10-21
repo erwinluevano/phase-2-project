@@ -147,7 +147,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
     m = get_mass(rover) # scalar
     Ng = get_gear_ratio(rover[2][2]) #scalar 
     radius = rover[2][1]['wheel radius'] # scalar
-    V = radius * Ng * omega # list # velocity of rover
+    V = radius * omega/ Ng # list # velocity of rover
     normalF = [m* planet['Mars'] * cos(a*pi/180) for a in terrain_angle] # list # normal force acting on each wheel # changed to cos rahter than sin
     Frrsimple = [normalF[x] * Crr[x] for x in range(len(normalF))] # list # return simple rolling resistant 
     Frr = np.array([erf(40*V[i])* Frrsimple[i] for i in range(len(V))]) # equation for rolling resistance # list
