@@ -39,10 +39,6 @@ power_subsys = {'mass': 90.0}
 
 omega = np.array([0, pi/3, pi/2])
 
-v = np.linspace(.01, .3158, 3)
-
-terrain_angle = np.array([-20, -30, 0, 30, 60,75])
-
 planet = {'Mars': 3.72}
 
 wheel_assembly = {1: wheel, 2: speed_reducer, 3: motor}
@@ -219,10 +215,10 @@ def motorW(v, rover):
 
     Parameters
     ----------
-    v : TYPE
-        DESCRIPTION.
-    rover : TYPE
-        DESCRIPTION.
+    v : int, float, or np.array
+      
+    rover : Dictionairy
+        
 
     Returns
     -------
@@ -439,7 +435,6 @@ def simulate_rover(rover,planet,experiment,end_event):
 simulate_rover(rover, planet, experiment, end_event)
 
 print(rover)
-
 
 
 
