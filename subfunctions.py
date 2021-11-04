@@ -18,6 +18,9 @@ from scipy.integrate import trapz
 from scipy.integrate import solve_ivp
 from end_of_mission_event import*
 
+########################################################################################################################
+
+# dictionaries of rover
 effcy_tau = np.array([0,10,20,40,75,165])
 
 effcy = np.array([0,.6,.75,.73,.55,.05])
@@ -58,7 +61,7 @@ experiment = {'time_range' : np.array([0,20000]),
 end_event = {'max_distance' : 50,
                   'max_time' : 5000,
                   'min_velocity' : 0.01}
-
+########################################################################################################################
 def is_array(x):
     
     if type(x) is not np.ndarray:
@@ -67,7 +70,7 @@ def is_array(x):
     else:
         return x
 
-
+########################################################################################################################
 
 def get_mass(rover):
     if type(rover) is dict:
@@ -78,7 +81,7 @@ def get_mass(rover):
         raise Exception(TypeError)
 
 
-
+########################################################################################################################
 
 def F_gravity(terrain_angle, rover, planet):
     terrain_angle = is_array(terrain_angle)
@@ -89,7 +92,7 @@ def F_gravity(terrain_angle, rover, planet):
     Fgt = np.array(Fgt)
     return Fgt
     
-
+########################################################################################################################
 
 def tau_dcmotor(omega, motor):
     tau = []
@@ -113,7 +116,7 @@ def tau_dcmotor(omega, motor):
     else:
         raise Exception(TypeError)
         
-
+########################################################################################################################
 
 def get_gear_ratio(speed_reducer):
     if type(speed_reducer) is dict:
@@ -123,6 +126,7 @@ def get_gear_ratio(speed_reducer):
         raise Exception(TypeError)
     return Ng
 
+ ########################################################################################################################
 def F_drive(omega, rover):
     """
 
@@ -147,7 +151,7 @@ def F_drive(omega, rover):
         Fd = 6*torque_output/radius # force = 6 tires * torque / radius 
     return Fd
 
-
+########################################################################################################################
 
 def F_rolling(omega, terrain_angle, rover, planet, Crr):
     terrain_angle = is_array(terrain_angle)
@@ -176,7 +180,7 @@ def F_rolling(omega, terrain_angle, rover, planet, Crr):
     
     return Frr
 
-
+########################################################################################################################
 
 
 def F_net(omega, terrain_angle, rover, planet, Crr):
@@ -208,7 +212,7 @@ def F_net(omega, terrain_angle, rover, planet, Crr):
     if len(Fn) < 2:
         Fn = Fn[0]
     return Fn
-
+########################################################################################################################
 def motorW(v, rover):
     """
     
@@ -260,6 +264,7 @@ def rover_dynamics(t,y,rover,planet,experiment):
         DESCRIPTION.
     experiment : TYPE
         DESCRIPTION.
+
 
     Raises
     ------
@@ -430,7 +435,7 @@ def simulate_rover(rover,planet,experiment,end_event):
                           'energy_per_distance': battenergy(time, velocity, rover)/max(position) 
                           } # telemetry to be added to rover
     return rover
-
+########################################################################################################################
 simulate_rover(rover, planet, experiment, end_event)
 
 print(rover)
